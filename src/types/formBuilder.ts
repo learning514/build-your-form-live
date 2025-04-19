@@ -7,7 +7,9 @@ export type FieldType =
   | 'number' 
   | 'dropdown' 
   | 'radio' 
-  | 'checkbox' 
+  | 'checkbox'
+  | 'textarea'
+  | 'date'
   | 'custom';
 
 export interface FormField {
@@ -18,6 +20,14 @@ export interface FormField {
   placeholder?: string;
   options?: string[];
   value?: string | string[] | number | boolean | File | null;
+  validation?: {
+    required?: boolean;
+    min?: number;
+    max?: number;
+    pattern?: string;
+  };
+  defaultValue?: string | string[] | number | boolean | null;
+  fieldName?: string;
 }
 
 export interface FormState {

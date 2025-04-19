@@ -7,6 +7,7 @@ type FormAction =
   | { type: 'ADD_FIELD', payload: FormField }
   | { type: 'REMOVE_FIELD', payload: string }
   | { type: 'UPDATE_FIELD_VALUE', payload: { id: string, value: any } }
+  | { type: 'UPDATE_FIELD', payload: FormField }
   | { type: 'RESET_FORM' };
 
 // Context types
@@ -50,6 +51,13 @@ function formReducer(state: FormState, action: FormAction): FormState {
           ...state.formData,
           [action.payload.id]: action.payload.value,
         },
+      };
+    case 'UPDATE_FIELD':
+      return {
+        ...state,
+        fields: state.fields.map(field => 
+          field.id === action.payload.id ? action.payload : field
+        ),
       };
     case 'RESET_FORM':
       return {

@@ -1,7 +1,7 @@
 
 import { useFormBuilder } from '@/context/FormBuilderContext';
 import { FormField } from '@/types/formBuilder';
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { X, Copy, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,22 +11,21 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface NumberFieldProps {
+interface TextareaFieldProps {
   field: FormField;
   onRemove: (id: string) => void;
   onEdit: (field: FormField) => void;
   onDuplicate: (field: FormField) => void;
 }
 
-const NumberField = ({ field, onRemove, onEdit, onDuplicate }: NumberFieldProps) => {
+const TextareaField = ({ field, onRemove, onEdit, onDuplicate }: TextareaFieldProps) => {
   const { dispatch, state } = useFormBuilder();
   const value = state.formData[field.id] || '';
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numberValue = e.target.value ? parseInt(e.target.value) : '';
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
       type: 'UPDATE_FIELD_VALUE',
-      payload: { id: field.id, value: numberValue },
+      payload: { id: field.id, value: e.target.value },
     });
   };
 
@@ -75,20 +74,17 @@ const NumberField = ({ field, onRemove, onEdit, onDuplicate }: NumberFieldProps)
       </div>
       <div className="space-y-2">
         <Label htmlFor={field.id}>{field.label}{field.required && <span className="text-red-500 ml-1">*</span>}</Label>
-        <Input
+        <Textarea
           id={field.id}
-          type="number"
           placeholder={field.placeholder}
           value={value}
           onChange={handleChange}
           required={field.required}
-          className="w-full"
-          min={field.validation?.min}
-          max={field.validation?.max}
+          className="w-full min-h-[100px]"
         />
       </div>
     </div>
   );
 };
 
-export default NumberField;
+export default TextareaField;

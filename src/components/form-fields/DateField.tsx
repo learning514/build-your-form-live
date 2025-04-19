@@ -1,32 +1,36 @@
 
 import { useFormBuilder } from '@/context/FormBuilderContext';
 import { FormField } from '@/types/formBuilder';
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Copy, Settings } from "lucide-react";
+import { X, Copy, Settings, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-interface NumberFieldProps {
+interface DateFieldProps {
   field: FormField;
   onRemove: (id: string) => void;
   onEdit: (field: FormField) => void;
   onDuplicate: (field: FormField) => void;
 }
 
-const NumberField = ({ field, onRemove, onEdit, onDuplicate }: NumberFieldProps) => {
+const DateField = ({ field, onRemove, onEdit, onDuplicate }: DateFieldProps) => {
   const { dispatch, state } = useFormBuilder();
-  const value = state.formData[field.id] || '';
+  const value = state.formData[field.id];
+  const [date, setDate] = useState<Date | undefined>(value ? new Date(value) : undefined);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numberValue = e.target.value ? parseInt(e.target.value) : '';
+  const handleSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
     dispatch({
       type: 'UPDATE_FIELD_VALUE',
-      payload: { id: field.id, value: numberValue },
+      payload: { id: field.id, value: selectedDate ? selectedDate.toISOString() : null },
     });
   };
 
@@ -75,20 +79,34 @@ const NumberField = ({ field, onRemove, onEdit, onDuplicate }: NumberFieldProps)
       </div>
       <div className="space-y-2">
         <Label htmlFor={field.id}>{field.label}{field.required && <span className="text-red-500 ml-1">*</span>}</Label>
-        <Input
-          id={field.id}
-          type="number"
-          placeholder={field.placeholder}
-          value={value}
-          onChange={handleChange}
-          required={field.required}
-          className="w-full"
-          min={field.validation?.min}
-          max={field.validation?.max}
-        />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              id={field.id}
+              variant="outline"
+              className={cn(
+                "w-full justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={handleSelect}
+              initialFocus
+              className="pointer-events-auto"
+              required={field.required}
+            />
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );
 };
 
-export default NumberField;
+export default DateField;
