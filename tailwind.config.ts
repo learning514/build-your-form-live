@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -67,6 +66,7 @@ export default {
 					primary: '#9b87f5',
 					secondary: '#7E69AB',
 					light: '#E5DEFF',
+					background: '#F9F5FF',
 				}
 			},
 			borderRadius: {
@@ -100,6 +100,12 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fadeIn 0.3s ease-in-out'
+			},
+			boxShadow: {
+				'form-builder': '0 10px 25px -5px rgba(157, 135, 245, 0.2)',
+			},
+			backgroundImage: {
+				'form-builder-gradient': 'linear-gradient(135deg, #E5DEFF 0%, #FFFFFF 100%)',
 			}
 		}
 	},
