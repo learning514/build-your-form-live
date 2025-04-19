@@ -83,9 +83,9 @@ const FormPreview = () => {
 
   return (
     <div className="p-4 bg-white rounded-lg border h-full">
-      <div className="mb-4 flex justify-between items-center">
+      <div className="mb-6 flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-semibold">Live Form Preview</h2>
+          <h2 className="text-xl font-semibold text-formBuilder-primary">Live Form Preview</h2>
           <p className="text-sm text-gray-500">This is how your form will look like</p>
         </div>
         {state.fields.length > 0 && (
@@ -93,7 +93,7 @@ const FormPreview = () => {
             variant="outline" 
             size="sm"
             onClick={handleExportConfig}
-            className="text-xs flex items-center gap-1"
+            className="text-xs flex items-center gap-1 border-formBuilder-primary text-formBuilder-primary hover:bg-formBuilder-light/50"
           >
             <Download size={14} />
             Export Config
@@ -102,12 +102,12 @@ const FormPreview = () => {
       </div>
       
       {state.fields.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 text-center text-gray-400 border-2 border-dashed rounded-lg">
+        <div className="flex flex-col items-center justify-center py-12 text-center text-gray-400 border-2 border-dashed rounded-lg border-formBuilder-light">
           <p className="mb-2">No fields added yet</p>
           <p className="text-sm">Select fields from the toolbox on the right side</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {state.fields.map((field) => (
             <FormFieldRenderer 
               key={field.id} 
@@ -121,7 +121,7 @@ const FormPreview = () => {
           <div className="pt-4">
             <Button 
               type="submit"
-              className="w-full bg-formBuilder-primary hover:bg-formBuilder-secondary"
+              className="w-full bg-formBuilder-primary hover:bg-formBuilder-secondary text-white transition-colors"
             >
               Submit Form
             </Button>

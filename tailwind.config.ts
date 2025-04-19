@@ -67,6 +67,8 @@ export default {
 					secondary: '#7E69AB',
 					light: '#E5DEFF',
 					background: '#F9F5FF',
+					accent: '#6E59A5',
+					muted: '#F1F0FB',
 				}
 			},
 			borderRadius: {
@@ -103,9 +105,11 @@ export default {
 			},
 			boxShadow: {
 				'form-builder': '0 10px 25px -5px rgba(157, 135, 245, 0.2)',
+				'form-field': '0 2px 4px -1px rgba(157, 135, 245, 0.1)',
 			},
 			backgroundImage: {
 				'form-builder-gradient': 'linear-gradient(135deg, #E5DEFF 0%, #FFFFFF 100%)',
+				'field-hover': 'linear-gradient(90deg, rgba(157, 135, 245, 0.05) 0%, rgba(157, 135, 245, 0.1) 100%)',
 			}
 		}
 	},

@@ -110,19 +110,19 @@ const FieldToolbox = () => {
 
   return (
     <div className="p-4 bg-white rounded-lg border h-full">
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold">Form Builder Toolbox</h2>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold text-formBuilder-primary mb-2">Form Builder Toolbox</h2>
         <p className="text-sm text-gray-500">Click on a field type to add it to your form</p>
       </div>
       
       <div className="mb-6">
-        <h3 className="text-md font-medium mb-2">Field Types</h3>
-        <div className="grid grid-cols-2 gap-2">
+        <h3 className="text-md font-medium mb-3 text-formBuilder-secondary">Field Types</h3>
+        <div className="grid grid-cols-2 gap-3">
           {fieldTypes.map((fieldType, index) => (
             <Button
               key={index}
               variant="outline"
-              className="justify-start h-auto py-2 text-left"
+              className="justify-start h-auto py-3 text-left hover:border-formBuilder-primary hover:text-formBuilder-primary transition-colors"
               onClick={() => handleFieldTypeClick(fieldType.type)}
             >
               <span className="truncate">{fieldType.label}</span>
@@ -132,19 +132,19 @@ const FieldToolbox = () => {
       </div>
 
       <div className="mb-4">
-        <h3 className="text-md font-medium mb-2">Quick Add Fields</h3>
-        <div className="grid gap-3 max-h-[calc(100vh-400px)] overflow-y-auto pr-1">
+        <h3 className="text-md font-medium mb-3 text-formBuilder-secondary">Quick Add Fields</h3>
+        <div className="grid gap-3 max-h-[calc(100vh-400px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-formBuilder-light scrollbar-track-transparent">
           {defaultFields.map((field, index) => (
-            <Card key={index} className="hover:shadow-md transition-shadow">
+            <Card key={index} className="hover:shadow-md transition-shadow border-gray-200 group">
               <CardContent className="p-4">
-                <h3 className="font-medium">{field.label}</h3>
-                <p className="text-xs text-gray-500 mt-1">Type: {field.type}</p>
+                <h3 className="font-medium text-formBuilder-primary">{field.label}</h3>
+                <p className="text-xs text-gray-500 mt-1 capitalize">{field.type}</p>
               </CardContent>
-              <CardFooter className="p-2 pt-0 flex justify-end">
+              <CardFooter className="p-2 pt-0 flex justify-end bg-gradient-to-r from-transparent to-formBuilder-light/10">
                 <Button 
                   size="sm" 
                   variant="outline"
-                  className="text-xs border-formBuilder-primary text-formBuilder-primary hover:bg-formBuilder-light"
+                  className="text-xs border-formBuilder-primary text-formBuilder-primary hover:bg-formBuilder-light/50 transition-colors"
                   onClick={() => handleQuickAdd(field)}
                 >
                   <Plus size={16} className="mr-1" /> Add Field
